@@ -8,7 +8,14 @@ set(CORE_SRCS src/core/wire.cpp)
 set(UI_SRCS src/ui/window.cpp)
 set(SRCS ${UI_SRCS} ${CORE_SRCS} src/main.cpp)
 
-include_directories(/usr/include/SDL2)
+if(UNIX)
+  include_directories(/usr/include/SDL2)
+endif(UNIX)
+
+if(MSVC)
+  include_directories(external)
+  link_directories(external/lib)
+endif(MSVC)
 
 add_executable(Neoboard ${SRCS})
 target_link_libraries(Neoboard SDL2 SDL2main SDL2_image SDL2_ttf)
